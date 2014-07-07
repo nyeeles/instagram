@@ -1,4 +1,4 @@
-<%= form_for @post do |form| %>
+<%= form_for @post, html: { multipart: true } do |form| %>
 	<p>
 		<%= form.label :title %>
 		<%= form.text_field :title %>
@@ -6,6 +6,10 @@
 	<p>
 		<%= form.label :body %>
 		<%= form.text_area :body %>
+	</p>
+	<p>
+		<%= form.label :image %>
+		<%= form.file_field :image %>
 	</p>
 	<p>
 		<%= form.submit %>
@@ -17,6 +21,7 @@
 	<% @posts.each do |post| %>
 		<h2><%= post.title %></h2>
 		<p><%= post.body %></p>
+		<p><%= image_tag post.image.url(:thumb), class: 'uploaded-pic' %></p>
 	<% end %>
 <% else %>
 	<h1>No posts yet</h1>
