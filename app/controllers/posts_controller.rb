@@ -7,6 +7,11 @@ class PostsController < ApplicationController
 
 	def create
 		@post = Post.create params[:post].permit(:title, :body, :image)
-		redirect_to '/posts'
+		if @post.save
+			redirect_to '/posts'
+		else
+			flash[:alert] = 'Please attach an image'
+			redirect_to '/posts'
+		end
 	end
 end
