@@ -6,6 +6,7 @@ describe 'Instagram' do
 		visit '/posts'
 		fill_in 'Title', with: 'First post'
 		fill_in 'Body', with: 'This is my first post, yay!'
+		attach_file 'Image', Rails.root.join('spec','images','old_man.jpg')
 	end
 
 	context 'logged in'do
@@ -25,16 +26,18 @@ describe 'Instagram' do
 			end
 
 			it 'creates a post with title and body' do
-				attach_file 'Image', Rails.root.join('spec','images','old_man.jpg')
 				click_button 'Create Post'
 				expect(page).to have_content 'First post'
 				expect(page).to have_content 'This is my first post, yay!'
 			end
 
 			it 'can add photos' do
-				attach_file 'Image', Rails.root.join('spec','images','old_man.jpg')
 				click_button 'Create Post'
 				expect(page).to have_css 'img.uploaded-pic'
+			end
+
+			it 'shows the user who posted it' do
+				
 			end
 		end
 	end
@@ -42,7 +45,6 @@ describe 'Instagram' do
 	context 'logged out' do
 
 		it 'cannot post' do
-			attach_file 'Image', Rails.root.join('spec','images','old_man.jpg')
 			click_button 'Create Post'
 			expect(page).to have_content 'You need to sign in or sign up before continuing.'
 			expect(page).not_to have_content 'First post'
