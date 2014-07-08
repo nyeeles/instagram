@@ -1,9 +1,10 @@
 require 'spec_helper'
 
-describe 'Instagram' do
+describe 'Instagram posts' do
+
+	let(:user) { User.create(email: 'blah@bla.com', password: '12345678', password_confirmation: '12345678')}
 	
 	before(:each) do
-		user = User.create(email: 'blah@bla.com', password: '12345678', password_confirmation: '12345678')
 		login_as user
 	end
 
@@ -24,7 +25,7 @@ describe 'Instagram' do
 
 	context 'with posts' do
 		it 'can show posts' do
-			post = Post.create(title:"My first post", body:"Here is some text",image_file_name: "old_man.jpg")
+			user.posts.create(title:"My first post", body:"Here is some text", image_file_name: "old_man.jpg")
 			visit '/posts'
 			expect(page).to have_content 'My first post'
 			expect(page).to have_content 'Here is some text'
