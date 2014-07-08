@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe 'Instagram' do
+	
+	before(:each) do
+		user = User.create(email: 'blah@bla.com', password: '12345678', password_confirmation: '12345678')
+		login_as user
+	end
 
 	context 'without posts' do
 		it 'has no posts' do
